@@ -1,13 +1,15 @@
 'use client'
+import { useViewMode } from '@/lib/useViewMode'
 import { useState } from 'react'
 
 export default function Products() {
+  const { viewOnly } = useViewMode()
   const [saved, setSaved] = useState(false)
   function save(e: React.FormEvent) { e.preventDefault(); setSaved(true) }
 
   return (
     <div className="card">
-      <h1 className="text-xl font-semibold mb-4">Registro de Productos</h1>
+      <h1 className="text-xl font-semibold mb-4">Registro de Productos</h1>\n      {viewOnly && <p className=\"text-sm rounded-lg bg-amber-50 border border-amber-200 text-amber-800 p-3 mt-2\">Tu correo no está verificado: solo lectura (modo view).</p>}\n
       <form className="grid md:grid-cols-2 gap-4" onSubmit={save}>
         <fieldset className="md:col-span-2"><legend className="font-semibold">Identificación On-chain</legend></fieldset>
         <div><label className="label">ID Token / Hash</label><input className="input" /></div>
@@ -55,8 +57,8 @@ export default function Products() {
         <div><label className="label">Certificado verde digital</label><input className="input" /></div>
 
         <div className="md:col-span-2 flex gap-2 mt-4">
-          <button className="btn btn-primary" type="submit">Guardar</button>
-          <button className="btn" type="reset">Limpiar</button>
+          <button className="btn btn-primary" type="submit" disabled={viewOnly}>Guardar</button>
+          <button className="btn" type="reset" disabled={viewOnly}>Limpiar</button>
         </div>
       </form>
       {saved && <p className="mt-3 text-sm">Producto guardado (simulado).</p>}

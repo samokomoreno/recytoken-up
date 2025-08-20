@@ -1,7 +1,9 @@
 'use client'
+import { useViewMode } from '@/lib/useViewMode'
 import { useState } from 'react'
 
 export default function Clients() {
+  const { viewOnly } = useViewMode()
   const [saved, setSaved] = useState(false)
   function save(e: React.FormEvent) {
     e.preventDefault()
@@ -10,7 +12,7 @@ export default function Clients() {
   return (
     <div className="grid gap-6">
       <div className="card">
-        <h1 className="text-xl font-semibold mb-4">Registro de Clientes / Proveedores</h1>
+        <h1 className="text-xl font-semibold mb-4">Registro de Clientes / Proveedores</h1>\n      {viewOnly && <p className=\"text-sm rounded-lg bg-amber-50 border border-amber-200 text-amber-800 p-3 mt-2\">Tu correo no está verificado: solo lectura (modo view).</p>}\n
         <form className="grid md:grid-cols-2 gap-4" onSubmit={save}>
           <fieldset className="md:col-span-2"><legend className="font-semibold">Identificación</legend></fieldset>
           <div><label className="label">ID Cliente</label><input className="input" placeholder="AUTOGENERADO" disabled /></div>
@@ -54,8 +56,8 @@ export default function Clients() {
           <div className="md:col-span-2"><label className="label">Consentimiento de uso de datos</label><input className="input" type="checkbox" /> <span className="text-sm">Acepto</span></div>
 
           <div className="md:col-span-2 flex gap-2 mt-4">
-            <button className="btn btn-primary" type="submit">Guardar</button>
-            <button className="btn" type="reset">Limpiar</button>
+            <button className="btn btn-primary" type="submit" disabled={viewOnly}>Guardar</button>
+            <button className="btn" type="reset" disabled={viewOnly}>Limpiar</button>
           </div>
         </form>
         {saved && <p className="mt-3 text-sm">Guardado (simulado). Validaciones pueden añadirse con Zod/React Hook Form.</p>}

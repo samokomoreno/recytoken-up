@@ -1,18 +1,16 @@
 'use client'
 import { useState } from 'react'
+import { signIn } from 'next-auth/react'
 
 export default function Register() {
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [status, setStatus] = useState<string | null>(null)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!email || !password) {
-      setStatus('Complete correo y contraseña.')
-      return
-    }
-    setStatus('Registro simulado. Se envió un correo HTML de bienvenida (simulado). Modo view hasta confirmar.')
+    if (!email) { setStatus('Ingrese su correo.'); return }
+    await signIn('email', { email, redirect: true, callbackUrl: '/' })
+    setStatus('Te enviamos un correo con enlace de verificación. Hasta confirmar tendrás modo view.')
   }
 
   return (
@@ -22,10 +20,6 @@ export default function Register() {
         <div>
           <label className="label">Correo</label>
           <input className="input" type="email" value={email} onChange={e=>setEmail(e.target.value)} />
-        </div>
-        <div>
-          <label className="label">Contraseña</label>
-          <input className="input" type="password" value={password} onChange={e=>setPassword(e.target.value)} />
         </div>
         <button className="btn btn-primary" type="submit">Crear cuenta</button>
       </form>

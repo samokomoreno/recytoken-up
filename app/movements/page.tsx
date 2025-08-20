@@ -1,9 +1,11 @@
 'use client'
+import { useViewMode } from '@/lib/useViewMode'
 import { useState } from 'react'
 
 type Item = { producto: string; cantidad: number; valorOnChain: string }
 
 export default function Movements() {
+  const { viewOnly } = useViewMode()
   const [items, setItems] = useState<Item[]>([])
   const [producto, setProducto] = useState('')
   const [cantidad, setCantidad] = useState(1)
@@ -19,7 +21,7 @@ export default function Movements() {
   return (
     <div className="grid gap-6">
       <div className="card">
-        <h1 className="text-xl font-semibold mb-4">Registro de Movimientos (Maestro-Detalle)</h1>
+        <h1 className="text-xl font-semibold mb-4">Registro de Movimientos (Maestro-Detalle)</h1>\n      {viewOnly && <p className=\"text-sm rounded-lg bg-amber-50 border border-amber-200 text-amber-800 p-3 mt-2\">Tu correo no está verificado: solo lectura (modo view).</p>}\n
         <form className="grid md:grid-cols-4 gap-3" onSubmit={addItem}>
           <div className="md:col-span-2">
             <label className="label">Producto</label>
@@ -34,7 +36,7 @@ export default function Movements() {
             <input className="input" value={valor} onChange={e=>setValor(e.target.value)} />
           </div>
           <div className="md:col-span-4">
-            <button className="btn btn-primary" type="submit">Agregar detalle</button>
+            <button className="btn btn-primary" type="submit" disabled={viewOnly}>Agregar detalle</button>
           </div>
         </form>
 
