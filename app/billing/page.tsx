@@ -61,4 +61,12 @@ export default function BillingPage() {
         <select name="estado" value={billing.estado} onChange={handleChange} disabled={viewOnly} className="input">
           <option value="Pendiente">Pendiente</option>
           <option value="Pagada">Pagada</option>
-          <option value="Cancelada"
+          <option value="Cancelada">Cancelada</option>
+        </select>
+        <textarea name="observaciones" value={billing.observaciones} onChange={handleChange} placeholder="Observaciones" disabled={viewOnly} className="input"/>
+        <button type="submit" disabled={viewOnly} className="btn mt-2">Registrar Factura</button>
+        {status && <p className="text-green-600 font-medium mt-2">{status}</p>}
+      </form>
+    </div>
+  );
+}

@@ -1,0 +1,15 @@
+{
+  "/_not-found": "app/_not-found.js",
+  "/billing/page": "app/billing/page.js",
+  "/page": "app/page.js",
+  "/manifest.json/route": "app/manifest.json/route.js",
+  "/search/page": "app/search/page.js",
+  "/clients/page": "app/clients/page.js",
+  "/register/page": "app/register/page.js",
+  "/login/page": "app/login/page.js",
+  "/movements/page": "app/movements/page.js",
+  "/settings/page": "app/settings/page.js",
+  "/verify-request/page": "app/verify-request/page.js",
+  "/products/page": "app/products/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
+}
